@@ -37,6 +37,8 @@ def version_page():
 # This is the actual page that will be displayed.
 @flask_app.route('/headsup/<event_id>/<team_id>/')
 def main_page(team_id, event_id):
+    TBAdata.oprs=None
+    TBAdata.matchnum=None
     """
     Main page renderer for Flask
     :param team_id: The Blue Alliance team ID.  GIVEN IN URL.
