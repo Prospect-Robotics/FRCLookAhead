@@ -253,7 +253,7 @@ class TeamEntry(object):
         try:
             return self.get_team_info_simple()['nickname']
         except:
-            return self.tba_team_id
+            return self.team_id
     
     @property
     def get_status(self):
