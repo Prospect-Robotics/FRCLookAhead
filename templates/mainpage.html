@@ -18,7 +18,10 @@
 			<p> Team <span class="bigteaminfo">{{ your_team_number }}</span> is
 				ranked <span class="bigteaminfo">{{ your_ranking }}</span> out of <span class="bigteaminfo">{{ total_teams }}</span>
 			</p>
-			<h2> Your next match is match <span class="bigteaminfo">{{ next_match_number }}</span>: </h2>
+			<h3> The current match is match {{ current_match }}</h3>
+			<h3> You have {{ next_match_number - current_match }} matches until your next match</h3>
+			<h2> Your next match is match <span class="bigteaminfo">{{ next_match_number }}</span> </h2>
+			
 			<div id="countdown"></div><input id="countdown_toggle" type="checkbox">pause timer<button onclick="location.reload();" class="refresh" id="reload"><img class="refresh" src="{{ url_for('static', filename='refresh.svg') }}"/></button>
 		</div>
 		<div class="tables">
@@ -32,6 +35,9 @@
 						<td>TEAM NO.</td>
 						<td>TEAM NAME</td>
 						<td>RECORD</td>
+						{% for opr in team[9] %}}
+							<td>{{ opr }}</td>
+						{% endfor %}
 						<td>LAST AUTO</td>
 						<td>LAST MATCH SCORE</td>
 						<td>W/L</td>
@@ -42,6 +48,9 @@
 						<td>{{ team[1] }}</td>
 						<td>{{ team[2] }}</td>
 						<td>{{ team[3] }}</td>
+						{% for opr in team[9] %}
+							<td>{{team[9][opr]}}</td>
+						{% endfor %}
 						<td>{{ team[4] }}</td>
 						<td>{{ team[5] }}</td>
 						<td class="winloss {{ team[6] }}">{{ team[6] }}</td>
@@ -53,15 +62,20 @@
 				<summary class="expand-title">
 					click for more info
 				</summary>
-				<table>
-					<tbody>
-						{% for detail in team[8] %}
-							<tr>
-								<td>{{detail}}</td><td>{{team[8][detail]}}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+				<details>
+					<summary class="expand-title">
+						last match scoring summary
+					</summary>
+						<table>
+							<tbody>
+								{% for detail in team[8] %}
+									<tr>
+										<td>{{detail}}</td><td>{{team[8][detail]}}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+				</details>
 			</details>
 			{% endfor %}
 			<!--Your alliance-->
@@ -74,6 +88,9 @@
 						<td>TEAM NO.</td>
 						<td>TEAM NAME</td>
 						<td>RECORD</td>
+						{% for opr in team[9] %}
+							<td>{{ opr }}</td>
+						{% endfor %}
 						<td>LAST AUTO</td>
 						<td>LAST MATCH SCORE</td>
 						<td>W/L</td>
@@ -84,6 +101,9 @@
 						<td>{{ team[1] }}</td>
 						<td>{{ team[2] }}</td>
 						<td>{{ team[3] }}</td>
+						{% for opr in team[9] %}
+							<td>{{team[9][opr]}}</td>
+						{% endfor %}
 						<td>{{ team[4] }}</td>
 						<td>{{ team[5] }}</td>
 						<td class="winloss {{ team[6] }}">{{ team[6] }}</td>
@@ -95,15 +115,20 @@
 				<summary class="expand-title">
 					click for more info
 				</summary>
-				<table>
-					<tbody>
-						{% for detail in team[8] %}
-							<tr>
-								<td>{{detail}}</td><td>{{team[8][detail]}}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+				<details>
+					<summary class="expand-title">
+						last match scoring summary
+					</summary>
+						<table>
+							<tbody>
+								{% for detail in team[8] %}
+									<tr>
+										<td>{{detail}}</td><td>{{team[8][detail]}}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+				</details>
 			</details>
 			{% endfor %}
 		</div>

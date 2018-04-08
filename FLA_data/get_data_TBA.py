@@ -9,6 +9,8 @@ import requests
 # YOU NEED AN AUTH KEY FROM THE BLUE ALLIANCE TO USE THIS APP.  You can get one on your account page.
 XTBAAUTHKEY = "0H4iSXWJtK6wbvKOVvTn5ERXT2MpfJHvi6kpCRCCjwlnpVSciKteJuSJQgnqM47U"
 
+oprs = None
+matchnum = None
 
 class TeamEntry(object):
     def __init__(self, tba_team_id, tba_event_id):
@@ -21,7 +23,37 @@ class TeamEntry(object):
         self.event_id = tba_event_id
         self.matches = None
         self.status = None
-
+    
+    
+    def get_team_oprs(self):
+        global oprs
+        if oprs is None:
+            url = "https://www.thebluealliance.com/api/v3/event/" + self.event_id + "/oprs"
+            print("getting oprs for event")
+            oprdata = requests.get(url, {"X-TBA-Auth-Key": XTBAAUTHKEY})
+            print("got {} characters".format(len(str(oprdata.json()))))
+            print("finished getting oprs")
+            oprs = oprdata.json()
+        opr = round(oprs.get('oprs',{}).get(self.team_id,'err'),2)
+        dpr = round(oprs.get('dprs',{}).get(self.team_id,'err'),2)
+        ccwm = round(oprs.get('ccwms',{}).get(self.team_id,'err'),2)
+        return {'ccwm':ccwm,'opr':opr,'dpr':dpr}
+    
+    #ugly code
+    def get_current_match_number(self):
+        global matchnum
+        if matchnum is None:
+            url = "https://www.thebluealliance.com/api/v3/event/"+self.event_id+"/matches/simple"
+            print("getting match number")
+            mnumdata = requests.get(url, {"X-TBA-Auth-Key": XTBAAUTHKEY})
+            print("got match number")
+            matches = mnumdata.json()
+            for match in matches:
+                if len(match["winning_alliance"]) is 0:
+                    matchnum = match["match_number"]
+                    return matchnum
+        return matchnum
+    
     def get_team_match_data(self):
         """
         Get all of a specified team's matches from the specified competition from the Blue Alliance.
@@ -125,9 +157,9 @@ class TeamEntry(object):
         :return: Next match string (NOT IDENTIFIER)
         """
         try:
-            return str(self.get_next_prev_match("next")["match_number"])
+            return self.get_next_prev_match("next")["match_number"]
         except:
-            return "idk"
+            return 0
 
     def get_team_status_stats(self):
         """

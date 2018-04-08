@@ -80,7 +80,8 @@ def main_page(team_id, event_id):
                            your_alliance_markup=your_alliance_markup,
                            your_alliance=your_alliance_table,
                            other_alliance_markup=other_alliance_markup,
-                           other_alliance=other_alliance_table)
+                           other_alliance=other_alliance_table,
+                           current_match=TBAdata.matchnum)
 
 
 def build_table_entry(team_id, event_id):
@@ -102,6 +103,12 @@ def build_table_entry(team_id, event_id):
     last_color = their_alliance[0]
     which_robot = their_alliance[1:].index(team_id) + 1
     prevmatchstats = team.get_last_match_breakdown()
+    oprs = team.get_team_oprs()
+    opr = oprs['opr']
+    dpr = oprs['dpr']
+    ccwm = oprs['ccwm']
+    #fix this
+    team.get_current_match_number()
     # Get that alliance's score from the last match
     try:
         last_score = str(last_match["alliances"][last_color]["score"])
@@ -132,4 +139,4 @@ def build_table_entry(team_id, event_id):
     team_name = team.get_team_name()
 
     # Great, now we have all the data.  Put it all together.
-    return [ranking, team_number, team_name, record, auto_run, last_score, winloss, endgame, prevmatchstats]
+    return [ranking, team_number, team_name, record, auto_run, last_score, winloss, endgame, prevmatchstats, oprs]
