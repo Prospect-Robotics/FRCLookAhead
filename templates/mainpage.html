@@ -26,16 +26,16 @@
 		</div>
 		<div class="tables">
 			<!--Your alliance-->
-			<h2> Your {{ your_alliance_markup }} alliance next match:</h2>
+			<h2> You're {{ your_alliance_markup }} alliance next match:</h2>
 			{% for team in your_alliance %}
-			<table class="team_info_table" border="1">
+			<table class="team_info_table" border="1"> 
 				<tbody>
 					<tr>
 						<td>RANK</td>
 						<td>TEAM NO.</td>
 						<td>TEAM NAME</td>
 						<td>RECORD</td>
-						{% for opr in team[9] %}}
+						{% for opr in team[9] %}
 							<td>{{ opr }}</td>
 						{% endfor %}
 						<td>LAST AUTO</td>
@@ -70,7 +70,7 @@
 							<tbody>
 								{% for detail in team[8] %}
 									<tr>
-										<td>{{detail}}</td><td>{{team[8][detail]}}</td>
+										<td>{{ detail }}</td><td>{{ team[8][detail] }}</td>
 									</tr>
 								{% endfor %}
 							</tbody>
@@ -83,6 +83,33 @@
 			{% for team in other_alliance %}
 			<table class="team_info_table" border="1">
 				<tbody>
+					<tr>
+						<td>RANK</td>
+						<td>TEAM NO.</td>
+						<td>TEAM NAME</td>
+						<td>RECORD</td>
+						{% for opr in team[9] %}
+							<td> {{ opr }}</td>
+						{% endfor %}
+						<td>LAST AUTO</td>
+						<td>LAST MATCH SCORE</td>
+						<td>W/L</td>
+						<td>LAST MATCH ENDGAME</td>
+					</tr>
+					<tr>
+						<td>{{ team[0] }}</td>
+						<td>{{ team[1] }}</td>
+						<td>{{ team[2] }}</td>
+						<td>{{ team[3] }}</td>
+						{% for opr in team[9] %}
+							<td>{{team[9][opr]}}</td>
+						{% endfor %}
+						<td>{{ team[4] }}</td>
+						<td>{{ team[5] }}</td>
+						<td class="winloss {{ team[6] }}">{{ team[6] }}</td>
+						<td>{{ team[7] }}</td>
+					</tr>
+				</tbody><tbody>
 					<tr>
 						<td>RANK</td>
 						<td>TEAM NO.</td>
