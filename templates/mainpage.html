@@ -26,7 +26,7 @@
 		</div>
 		<div class="tables">
 			<!--Your alliance-->
-			<h2> You're {{ your_alliance_markup }} alliance next match:</h2>
+			<h2> Your {{ your_alliance_markup }} alliance next match:</h2>
 			{% for team in your_alliance %}
 			<table class="team_info_table" border="1"> 
 				<tbody>
@@ -78,6 +78,7 @@
 				</details>
 			</details>
 			{% endfor %}
+			<
 			<!--Your alliance-->
 			<h2> Opposing {{ other_alliance_markup }} alliance next match:</h2>
 			{% for team in other_alliance %}

@@ -34,9 +34,9 @@ class TeamEntry(object):
             print("got {} characters".format(len(str(oprdata.json()))))
             print("finished getting oprs")
             oprs = oprdata.json()
-        opr = round(oprs.get('oprs',{}).get(self.team_id,'err'),2)
-        dpr = round(oprs.get('dprs',{}).get(self.team_id,'err'),2)
-        ccwm = round(oprs.get('ccwms',{}).get(self.team_id,'err'),2)
+        opr = round(oprs.get('oprs',{}).get(self.team_id,0),2)
+        dpr = round(oprs.get('dprs',{}).get(self.team_id,0),2)
+        ccwm = round(oprs.get('ccwms',{}).get(self.team_id,0),2)
         return {'ccwm':ccwm,'opr':opr,'dpr':dpr}
     
     #ugly code
